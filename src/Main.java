@@ -1,28 +1,41 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
-        int[] distance = new int[2];
 
-        distance[0] = 16;
-        distance[1] = 26;
+        File file = new File("Output.txt");
 
-        int term = 0;
+        //file input proccess
 
-        int i = distance[0];
+        int[] datalist = readFile();
 
-        while(i <= distance[1]){
+        // main execution
 
-            int c = checknine(i);
+        int term;
 
-            if (c == 1){
-                term = term + 1;
+        try{
+
+            PrintWriter output = new PrintWriter(file);
+
+            for(int i = 1 ; i< datalist.length ; i++){
+
+                term = main_execution(datalist[i],datalist[i+1]);
+
+                System.out.println("terms : "+term);
+
+                output.println("case #"+((i+2)/2)+": "+ term);
+
+                i = i+1;
             }
 
-            i = i+1;
-        }
+            output.close();
 
-        System.out.println("terms = "+term);
+        }catch (FileNotFoundException e) {System.out.println("File not found");}
     }
 
     private static int checknine(int i) {
@@ -50,5 +63,49 @@ public class Main {
         }else{
             return 1;
         }
+    }
+
+    private static int[] readFile() throws FileNotFoundException {
+
+
+        File file1 = new File("D:\\Java\\NoNine\\input.txt");
+
+        Scanner sc = new Scanner(file1);
+
+        int ctr = 0 ;
+        while(sc.hasNext()){
+
+            ctr++;
+            sc.nextInt();
+        }
+
+        int[] testcase = new int[ctr];
+
+        Scanner scanner1 = new Scanner(file1);
+
+        for ( int i =0 ; i<testcase.length ; i++){
+            testcase[i] = scanner1.nextInt();
+        }
+
+        return testcase;
+    }
+
+    private static int main_execution(int i , int j){
+
+        int term = 0;
+
+
+        while(i <= j){
+
+            int c = checknine(i);
+
+            if (c == 1){
+                term = term + 1;
+            }
+
+            i = i+1;
+        }
+
+        return term;
     }
 }
