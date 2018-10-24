@@ -10,11 +10,11 @@ public class Main {
 
         File file = new File("Output.txt");
 
-        //file input proccess
+        // file input proccess
 
         int[] datalist = readFile();
 
-        // main execution
+        // main execution and write file
 
         int term;
 
